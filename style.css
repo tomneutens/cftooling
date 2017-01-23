@@ -1,0 +1,40 @@
+ #editorContainer {
+      position: absolute;
+      margin-left: 650px;
+      width: 500px;
+      height: 600px;
+  }
+  .setupEditor{
+    width: 500px;
+    height: 200px;
+  }
+  .loopEditor{
+    width: 500px;
+    height: 400px;
+  }
+
+#consoleOutput{
+  position: fixed;
+  height: 100px;
+  bottom: 0;
+  overflow-y: scroll;
+  width: 500px;
+}
+
+#gameview{
+	position: absolute;
+}
+
+#gameViewContainer{
+    position: absolute;
+}
+
+#sjs0-background{
+	border: solid black 1px;
+}
+
+#sprite_list{
+  /*position: absolute;*/
+  width: 500px;
+  /*margin-left: 650px;*/
+}

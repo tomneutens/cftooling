@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+
+  <script src="sprite.js"></script>
+  <script src="lib/collision.js"></script>
+  <script src="oefeningen/les4oef1.js"></script>
+  <script src="js/spritejs_engine.js"></script>
+  <script src="jquery/jquery-3.1.1.min.js"></script>
+  <script src="jquery-ui/jquery-ui.js"></script>
+  <script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <link rel="stylesheet" href="jquery-ui/jquery-ui.css">
+
+</head>
+<body>
+
+<h1>My First Heading</h1>
+<p>My first paragraph.</p>
+<button id="playButton">Code uitvoeren</button>
+<div id="editorContainer">
+  <div id="sprite_code_tabs">
+    <ul id="sprite_code_tabs_buttons">
+      <li><a href="#tabs-1">Nunc tincidunt</a></li>
+    </ul>
+    <div id="code_tab_1">
+      <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+    </div>
+  </div>
+    </div>
+    <div id='gameViewContainer'>
+    </div>
+<div id="consoleOutput">
+  Dit is de console, hier kan je extra informatie uitschrijven die je in je programma nodig hebt.
+  Bijvoorbeeld de score van een spel.
+</div>
+
+    <script>
+    let setupEditorList = {};
+    let loopEditorList = {};
+      $(document).ready(function(){
+        $("#sprite_code_tabs").tabs();
+        initGame(false);
+        //Reset the game when the play button is clicked
+        $("#playButton").click(function(){
+          $("#gameViewContainer").empty();
+          initGame(true);
+        });
+
+      });
+
+    </script>
+
+</body>
+</html>
