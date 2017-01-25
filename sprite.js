@@ -221,6 +221,9 @@ Scene = function Scene(options) {
 Scene.prototype.constructor = Scene;
 
 Scene.prototype.Sprite = function SceneSprite(src, layer) {
+    this.rood = 0;
+    this.groen = 0;
+    this.blauw = 0;
     // A shortcut for sjs.Sprite
     if(layer===undefined)
         sjs.error("When you create Sprite from the scene the layer should be specified or false.");
@@ -497,8 +500,42 @@ Sprite.prototype.maakYSnelheid = function(ySnelheid){
   this.yv = ySnelheid;
 };
 
-Sprite.prototype.maakKleur = function(kleurCode){
-  this.setColor(kleurCode);
+Sprite.prototype.maakKleur = function(rood, groen, blauw){
+  this.rood = rood || 0;
+  this.groen = groen || 0;
+  this.blauw = blauw || 0;
+  this.setColor("rgb(" + rood + ", " + groen + ", " + blauw + ")");
+};
+
+Sprite.prototype.updateColor = function(){
+  this.maakKleur(this.geefKleurHoeveelheidRood(), this.geefKleurHoeveelheidGroen(), this.geefKleurHoeveelheidBlauw());
+};
+
+Sprite.prototype.maakKleurHoeveelheidRood = function(hoeveelRood){
+  this.rood = hoeveelRood;
+  this.updateColor();
+};
+
+Sprite.prototype.maakKleurHoeveelheidGroen = function(hoeveelGroen){
+  this.groen = hoeveelGroen;
+  this.updateColor();
+};
+
+Sprite.prototype.maakKleurHoeveelheidBlauw = function(hoeveelBlauw){
+  this.blauw = hoeveelBlauw;
+  this.updateColor();
+};
+
+Sprite.prototype.geefKleurHoeveelheidRood = function(){
+  return this.rood || 0;
+};
+
+Sprite.prototype.geefKleurHoeveelheidGroen = function(){
+  return this.groen || 0;
+};
+
+Sprite.prototype.geefKleurHoeveelheidBlauw = function(){
+  return this.blauw || 0;
 };
 
 Sprite.prototype.maakWaardeRodeKleur = function(){
@@ -1604,7 +1641,11 @@ _addEventListener(global, "blur", function (e) {
                 div.style.paddingTop = ((scene.h / 2) - 32) + 'px';
                 var listener = function (e) {
                     _preventEvent(e);
-                    scene.dom.removeChild(div);
+                    try{
+                      scene.dom.removeChild(div);
+                    }catch(e){
+                      console.log("something went wrong when removing child");
+                    }
                     _removeEventListener(doc, 'click', listener, false);
                     _removeEventListener(doc, 'keyup', listener, false);
                     scene.ticker.resume();

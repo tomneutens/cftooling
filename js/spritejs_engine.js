@@ -29,20 +29,20 @@ function initGame(reinit){
      this.keyMemory[key] = pressed;
    },
    pijltjeOmhoogIngedrukt: function(){
-     return this.keyMemory["38"] || false;
+     return this.keyMemory["&"] || false;
    },
    pijltjeRechtsIngedrukt: function(){
-     return this.keyMemory["39"] || false;
+     return this.keyMemory["''"] || false;
    },
    pijltjeOmlaagIngedrukt: function(){
-     return this.keyMemory["40"] || false;
+     return this.keyMemory["("] || false;
    },
    pijltjeLinksIngedrukt: function(){
-     return this.keyMemory["37"] || false;
+     return this.keyMemory["%"] || false;
    },
    isKnopIngedrukt: function(letter){
-     console.log(letter.charCodeAt(0));
-     return this.keyMemory[letter.charCodeAt(0)];
+     console.log(letter.toUpperCase());
+     return this.keyMemory[letter.toUpperCase()];
    },
     dispose: function(){
       game.scene.reset();
@@ -56,7 +56,6 @@ function initGame(reinit){
       var foreground = game.scene.Layer('foreground', {useCanvas:true});
       game.foreground = foreground;
       game.usedSprites.forEach(function(item, index){
-
         game.sprites[item.name] = game.foreground.Sprite(item.url);
       });
 
@@ -108,13 +107,13 @@ function initGame(reinit){
         // Create key event handlers
         $(window).keydown(function(e) {
            var key = e.which;
-           game.setKeyMemory(key, true);
-           console.log("key down " + e.which);
+           game.setKeyMemory(String.fromCharCode((96 <= key && key <= 105)? key-48 : key), true);
+           console.log("key down " + String.fromCharCode((96 <= key && key <= 105)? key-48 : key));
        });
        $(window).keyup(function(e) {
           var key = e.which;
-          game.setKeyMemory(key, false);
-          console.log("key up " + e.which);
+          game.setKeyMemory(String.fromCharCode((96 <= key && key <= 105)? key-48 : key), false);
+          console.log("key up " + String.fromCharCode((96 <= key && key <= 105)? key-48 : key));
       });
       // Create editors
       let tabs = $("#sprite_code_tabs");
@@ -139,8 +138,14 @@ function initGame(reinit){
         tabs.append(newTab);
         let editor1 = ace.edit("setupEditor" + tabnr);
         editor1.getSession().setMode("ace/mode/javascript");
+        editor1.setOptions({
+            enableBasicAutocompletion: true
+        });
         let editor2 = ace.edit("loopEditor" + tabnr);
         editor2.getSession().setMode("ace/mode/javascript");
+        editor2.setOptions({
+            enableBasicAutocompletion: true
+        });
         //Make sure editors loose focus after clicking on the game window
         $("#gameViewContainer").click(function(){
           editor1.blur();
